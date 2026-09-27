@@ -1,0 +1,670 @@
+.notesContainer {
+  min-height: 100vh;
+  padding-top: 70px;
+  transition: all 0.3s ease;
+  background: #f5f5f5;
+}
+
+:global([data-theme="dark"]) .notesContainer {
+  background: #0a0a0a;
+}
+
+.mainContent {
+  margin-left: 250px;
+  padding: 40px 50px;
+  max-width: 1600px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1a4a52;
+  margin: 0;
+}
+
+:global([data-theme="dark"]) .title {
+  color: #e0e0e0;
+}
+
+.addButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: var(--accent-gradient);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(44, 110, 126, 0.2);
+}
+
+.addButton:hover {
+  filter: brightness(0.95);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(44, 110, 126, 0.3);
+}
+
+.addButton:active {
+  transform: translateY(0);
+}
+
+.notesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 35px;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.noteCard {
+  position: relative;
+  background: 
+    linear-gradient(to bottom, transparent 0px, transparent 1px, rgba(100, 100, 100, 0.15) 1px, transparent 2px),
+    linear-gradient(90deg, 
+      #fefdfb 0%, 
+      #fffef7 10%, 
+      #fffef8 50%, 
+      #fffef7 90%, 
+      #fefdfb 100%
+    );
+  background-size: 100% 28px, 100% 100%;
+  border-radius: 4px;
+  padding: 30px 24px 20px 24px;
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.12),
+    0 4px 16px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  transition: all 0.3s ease;
+  overflow: hidden;
+  min-height: 320px;
+  max-height: 380px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  border: 1px solid rgba(200, 180, 140, 0.5);
+  position: relative;
+}
+
+.noteCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(255, 248, 220, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(255, 248, 220, 0.2) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+:global([data-theme="dark"]) .noteCard {
+  background: 
+    linear-gradient(to bottom, transparent 0px, transparent 1px, rgba(255, 255, 255, 0.05) 1px, transparent 2px),
+    linear-gradient(90deg, #2a2a2a 0%, #2d2d2d 50%, #2a2a2a 100%);
+  background-size: 100% 28px, 100% 100%;
+  box-shadow: 
+    0 2px 5px rgba(0, 0, 0, 0.3),
+    0 4px 12px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.noteCard:hover {
+  transform: translateY(-6px) rotate(0.5deg);
+  box-shadow: 
+    0 6px 15px rgba(0, 0, 0, 0.15),
+    0 10px 25px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+:global([data-theme="dark"]) .noteCard:hover {
+  box-shadow: 
+    0 6px 15px rgba(0, 0, 0, 0.6),
+    0 10px 25px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Paper fold effect - top left corner */
+.noteFold {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 40px 40px 0 0;
+  border-color: rgba(255, 235, 180, 0.6) transparent transparent transparent;
+  z-index: 2;
+  filter: drop-shadow(-1px -1px 2px rgba(0, 0, 0, 0.1));
+}
+
+:global([data-theme="dark"]) .noteFold {
+  border-color: rgba(60, 60, 60, 0.8) transparent transparent transparent;
+}
+
+/* Shadow for fold */
+.noteFold::after {
+  content: '';
+  position: absolute;
+  top: -40px;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, rgba(0,0,0,0.15) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.noteContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+  position: relative;
+}
+
+.noteText {
+  flex: 1;
+  font-size: 15px;
+  line-height: 28px;
+  color: #2c2c2c;
+  margin: 0 0 16px 0;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  overflow: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: left;
+}
+
+:global([data-theme="dark"]) .noteText {
+  color: #d4d4d4;
+}
+
+.noteFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+:global([data-theme="dark"]) .noteFooter {
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+.noteDate {
+  font-size: 12px;
+  color: #888;
+  font-weight: 500;
+}
+
+:global([data-theme="dark"]) .noteDate {
+  color: #999;
+}
+
+/* View Note in Modal */
+.noteViewContent {
+  flex: 1;
+  min-height: 350px;
+  max-height: 500px;
+  overflow-y: auto;
+  padding: 24px;
+  border: 2px solid rgba(44, 110, 126, 0.15);
+  border-radius: 8px;
+  font-size: 16px;
+  line-height: 28px;
+  color: #2c2c2c;
+  background: 
+    linear-gradient(to bottom, transparent 0px, transparent 1px, rgba(100, 100, 100, 0.12) 1px, transparent 2px),
+    rgba(255, 255, 255, 0.5);
+  background-size: 100% 28px, 100% 100%;
+  margin-bottom: 20px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  z-index: 2;
+  position: relative;
+}
+
+:global([data-theme="dark"]) .noteViewContent {
+  background: 
+    linear-gradient(to bottom, transparent 0px, transparent 1px, rgba(255, 255, 255, 0.04) 1px, transparent 2px),
+    rgba(0, 0, 0, 0.2);
+  background-size: 100% 28px, 100% 100%;
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #d4d4d4;
+}
+
+.noteViewFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  margin-bottom: 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  z-index: 2;
+  position: relative;
+}
+
+:global([data-theme="dark"]) .noteViewFooter {
+  border-top-color: rgba(255, 255, 255, 0.1);
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.noteViewDate {
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+}
+
+:global([data-theme="dark"]) .noteViewDate {
+  color: #999;
+}
+
+.deleteButtonModal {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 24px;
+  background: #dc2626;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
+  z-index: 2;
+  position: relative;
+}
+
+.deleteButtonModal:hover {
+  background: #b91c1c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
+}
+
+.deleteButtonModal:active {
+  transform: translateY(0);
+}
+
+/* Empty State */
+.emptyState {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  color: #666;
+  text-align: center;
+}
+
+.emptyState svg {
+  margin-bottom: 24px;
+  opacity: 0.5;
+  stroke: #666;
+}
+
+:global([data-theme="dark"]) .emptyState {
+  color: #999;
+}
+
+:global([data-theme="dark"]) .emptyState svg {
+  stroke: #999;
+}
+
+.emptyState p {
+  font-size: 18px;
+  margin: 0;
+  max-width: 400px;
+  color: inherit;
+}
+
+/* Modal */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+  animation: fadeIn 0.2s ease;
+  backdrop-filter: blur(4px);
+}
+
+.modal {
+  position: relative;
+  background: 
+    linear-gradient(90deg, 
+      #fefdfb 0%, 
+      #fffef7 10%, 
+      #fffef8 50%, 
+      #fffef7 90%, 
+      #fefdfb 100%
+    );
+  border-radius: 12px;
+  padding: 50px 40px 40px 40px;
+  width: 100%;
+  max-width: 750px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.3),
+    0 10px 30px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  animation: slideUp 0.3s ease;
+  border: 1px solid rgba(200, 180, 140, 0.4);
+}
+
+.modal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(255, 248, 220, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(255, 248, 220, 0.2) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 12px;
+}
+
+:global([data-theme="dark"]) .modal {
+  background: linear-gradient(90deg, #2a2a2a 0%, #2d2d2d 50%, #2a2a2a 100%);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.7),
+    0 10px 30px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Modal fold effect */
+.modalFold {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 55px 55px 0 0;
+  border-color: rgba(255, 235, 180, 0.6) transparent transparent transparent;
+  z-index: 2;
+  border-top-left-radius: 12px;
+  filter: drop-shadow(-1px -1px 3px rgba(0, 0, 0, 0.12));
+}
+
+:global([data-theme="dark"]) .modalFold {
+  border-color: rgba(60, 60, 60, 0.8) transparent transparent transparent;
+}
+
+.modalFold::after {
+  content: '';
+  position: absolute;
+  top: -55px;
+  left: 0;
+  width: 55px;
+  height: 55px;
+  background: linear-gradient(135deg, rgba(0,0,0,0.15) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.closeButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.closeButton:hover {
+  background: rgba(0, 0, 0, 0.08);
+  color: var(--text-primary);
+}
+
+:global([data-theme="dark"]) .closeButton:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.closeButton:active {
+  transform: scale(0.95);
+}
+
+.modalTitle {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 24px 0;
+  z-index: 2;
+  position: relative;
+}
+
+.noteInput {
+  width: 100%;
+  min-height: 350px;
+  padding: 24px;
+  border: 2px solid rgba(44, 110, 126, 0.2);
+  border-radius: 8px;
+  font-size: 16px;
+  line-height: 28px;
+  resize: vertical;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #2c2c2c;
+  background: 
+    linear-gradient(to bottom, transparent 0px, transparent 1px, rgba(100, 100, 100, 0.12) 1px, transparent 2px),
+    rgba(255, 255, 255, 0.5);
+  background-size: 100% 28px, 100% 100%;
+  margin-bottom: 24px;
+  transition: all 0.2s ease;
+  z-index: 2;
+  position: relative;
+}
+
+:global([data-theme="dark"]) .noteInput {
+  background: 
+    linear-gradient(to bottom, transparent 0px, transparent 1px, rgba(255, 255, 255, 0.04) 1px, transparent 2px),
+    rgba(0, 0, 0, 0.2);
+  background-size: 100% 28px, 100% 100%;
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #d4d4d4;
+}
+
+.noteInput:focus {
+  outline: none;
+  border-color: var(--primary-color, #2C6E7E);
+  box-shadow: 0 0 0 3px rgba(44, 110, 126, 0.1);
+}
+
+:global([data-theme="dark"]) .noteInput:focus {
+  box-shadow: 0 0 0 3px rgba(44, 110, 126, 0.2);
+}
+
+.saveButton {
+  width: 100%;
+  padding: 14px 24px;
+  background: var(--accent-gradient);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(44, 110, 126, 0.2);
+  z-index: 2;
+  position: relative;
+}
+
+.saveButton:hover:not(:disabled) {
+  filter: brightness(0.95);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(44, 110, 126, 0.3);
+}
+
+.saveButton:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.saveButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* CSS Variables */
+:root {
+  --accent-gradient: linear-gradient(135deg, #2c6e7e 0%, #d4a549 100%);
+  --primary-color: #2C6E7E;
+  --primary-color-dark: #1f4e5a;
+  --text-primary: #1a4a52;
+  --text-secondary: #666;
+  --note-bg: #fffef7;
+  --fold-color: #e8e5d5;
+}
+
+:global([data-theme="dark"]) {
+  --text-primary: #e0e0e0;
+  --text-secondary: #888;
+  --note-bg: #2a2a2a;
+  --fold-color: #1a1a1a;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .notesContainer {
+    padding-left: 0;
+  }
+
+  .mainContent {
+    margin-left: 0;
+    padding: 20px;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .addButton {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .notesGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .noteCard {
+    min-height: 280px;
+    max-height: 320px;
+  }
+
+  .modal {
+    padding: 40px 20px 30px 20px;
+  }
+
+  .modalTitle {
+    font-size: 24px;
+  }
+
+  .noteInput {
+    min-height: 280px;
+  }
+
+  .noteViewContent {
+    min-height: 250px;
+  }
+}
+
+/* Custom Scrollbar */
+.noteViewContent::-webkit-scrollbar,
+.modal::-webkit-scrollbar {
+  width: 8px;
+}
+
+.noteViewContent::-webkit-scrollbar-track,
+.modal::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+}
+
+.noteViewContent::-webkit-scrollbar-thumb,
+.modal::-webkit-scrollbar-thumb {
+  background: rgba(44, 110, 126, 0.3);
+  border-radius: 4px;
+}
+
+.noteViewContent::-webkit-scrollbar-thumb:hover,
+.modal::-webkit-scrollbar-thumb:hover {
+  background: rgba(44, 110, 126, 0.5);
+}
+
+:global([data-theme="dark"]) .noteViewContent::-webkit-scrollbar-track,
+:global([data-theme="dark"]) .modal::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+:global([data-theme="dark"]) .noteViewContent::-webkit-scrollbar-thumb,
+:global([data-theme="dark"]) .modal::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+:global([data-theme="dark"]) .noteViewContent::-webkit-scrollbar-thumb:hover,
+:global([data-theme="dark"]) .modal::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}

@@ -1,0 +1,150 @@
+/* Workspace Container */
+.workspaceContainer {
+  min-height: calc(100vh - 140px);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.viewToggle {
+  display: flex;
+  gap: 12px;
+  padding: 4px;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.toggleButton {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.toggleButton:hover {
+  opacity: 0.9;
+}
+
+.viewContainer {
+  margin-top: 24px;
+}
+
+/* Calendar Styles */
+.calendarContainer {
+  transition: all 0.3s ease;
+}
+
+/* Todo Styles */
+.todoContainer {
+  width: 100%;
+}
+
+.taskCard {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.taskCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+}
+
+.taskListItem {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.taskListItem:hover {
+  transform: translateX(4px);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Theme Toggle - matches dashboard */
+.themeToggle {
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.themeToggle:hover {
+  transform: scale(1.05);
+}
+
+.themeToggle svg {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.themeToggle:active svg {
+  transform: rotate(180deg) scale(0.9);
+}
+
+/* Dark mode specific */
+:global([data-theme="dark"]) .themeToggle {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #1a1a1a;
+  color: #ffffff;
+}
+
+:global([data-theme="dark"]) .themeToggle:hover {
+  background: #252525;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Light mode specific */
+:global([data-theme="light"]) .themeToggle {
+  border: 1px solid rgba(44, 110, 126, 0.15);
+  background: #ffffff;
+  color: #1a4a52;
+}
+
+:global([data-theme="light"]) .themeToggle:hover {
+  background: #f5f5f5;
+  border-color: rgba(44, 110, 126, 0.25);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .viewToggle {
+    width: 100%;
+  }
+
+  .toggleButton {
+    flex: 1;
+    justify-content: center;
+  }
+}

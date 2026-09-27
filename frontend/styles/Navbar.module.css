@@ -1,0 +1,45 @@
+.navbar {
+    width: max-content;
+}
+
+.navbar_head {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+    align-items: center;
+    margin-right: 3rem;
+    margin-left: 3rem;
+}
+
+.app_name {
+    justify-content: center;
+    align-items: center;
+    width: 8.5rem;
+    display: flex;
+}
+
+.nav_list {
+    display: flex;
+    justify-content: center;
+}
+
+
+.navbar_head ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.navbar_head li {
+    display: inline-block;
+    margin-left: 4rem;
+}
+
+.navbar_head a {
+    text-decoration: none;
+    color: var(--text-color);
+    transition: color 0.25s ease;
+}
+
+.navbar_head a:hover {
+    color: var(--hover-color);
+}

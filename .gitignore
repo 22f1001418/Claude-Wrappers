@@ -1,0 +1,90 @@
+*.md
+!README.md
+!README_TEST_CASES.md
+!README_TEST_CASES_FULL.md
+
+# General
+.DS_Store
+.vscode/
+.idea/
+*.log
+
+# Local tooling caches
+**/.cache/
+
+# Python / Backend
+**/__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+**/.coverage
+**/coverage.xml
+**/htmlcov/
+
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+# lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Python Virtual Environments
+venv/
+env/
+ENV/
+.venv/
+env.bak/
+venv.bak/
+
+# Backend Specific
+!backend/chatbot/vectorstore/.gitkeep
+
+# Node.js / Frontend
+**/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Next.js
+**/.next/
+**/out/
+**/.turbo/
+**/.vercel/
+
+# Environment Variables
+.env
+.env.*
+*.env
+!.env.example
+!*.env.example
+!.env.sample
+
+# Operating System
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+*.sqlite3
+frontend/package-lock.json
+frontend/yarn.lock
+uploads/
+exports/
+backend/celerybeat-schedule
+backend/celerybeat-schedule-shm
+backend/celerybeat-schedule-wal
